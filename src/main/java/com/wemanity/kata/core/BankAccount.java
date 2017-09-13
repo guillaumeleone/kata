@@ -1,11 +1,6 @@
 package com.wemanity.kata.core;
 
-import com.wemanity.kata.core.Operation.TYPE;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,11 +10,9 @@ import static java.time.LocalDateTime.*;
 
 public class BankAccount {
 
-	private static final Logger logger = LoggerFactory.getLogger(BankAccount.class);
-
 	private LocalDateTime date;
 	private Amount balance;
-	private List<Operation> operations = new ArrayList<Operation>();
+	private Historic historic = new Historic();
 
 	public BankAccount(LocalDateTime date, Amount balance) {
 		Objects.requireNonNull(date);
@@ -31,20 +24,14 @@ public class BankAccount {
 	public void deposit(Amount amount) {
 		checkIfAmountIsPositive(amount);
 		this.balance = this.balance.add(amount);
-		saveOperation(DEPOSIT, now(), amount, balance);
-		logger.debug("Balance: {}", this.balance);
+		this.historic.saveOperation(new Operation(DEPOSIT, now(), amount, balance));
 	}
 
 	public void withdraw(Amount amount) {
 		checkIfAmountIsPositive(amount);
 		checkIfBalanceIsPositive(amount);
 		this.balance = this.balance.substract(amount);
-		saveOperation(WITHDRAWAL, now(), amount, balance);
-		logger.debug("Balance: {}", this.balance);
-	}
-
-	private void saveOperation(TYPE type, LocalDateTime date, Amount amount, Amount balance) {
-		this.operations.add(new Operation(type, date, amount, balance));
+		this.historic.saveOperation(new Operation(WITHDRAWAL, now(), amount, balance));
 	}
 
 	private void checkIfAmountIsPositive(Amount amount) {
@@ -86,6 +73,6 @@ public class BankAccount {
 	}
 
 	public List<Operation> getOperations() {
-		return operations;
+		return historic.getOperations();
 	}
 }

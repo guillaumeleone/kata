@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.wemanity.kata.core.Operation.TYPE.*;
-import static java.math.BigDecimal.*;
 import static java.time.LocalDateTime.*;
 
 public class BankAccount {
@@ -35,7 +34,7 @@ public class BankAccount {
 	}
 
 	private void checkIfAmountIsPositive(Amount amount) {
-		if (amount.compareTo(new Amount(ZERO)) < 0) {
+		if (amount.compareTo(Amount.of(0)) < 0) {
 			throw new IllegalArgumentException("Amount must be positive");
 		}
 	}

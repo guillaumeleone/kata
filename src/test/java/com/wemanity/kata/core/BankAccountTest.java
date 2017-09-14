@@ -2,9 +2,6 @@ package com.wemanity.kata.core;
 
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
-import static java.math.BigDecimal.*;
 import static java.time.LocalDateTime.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,61 +15,61 @@ public class BankAccountTest {
 	@Test
 	public void should_return_10_when_deposit_an_amount_of_10() {
 
-		Amount amount = new Amount(ZERO);
+		Amount amount = Amount.of(0);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.deposit(new Amount(TEN));
+		account.deposit(Amount.of(10));
 
-		assertThat(account.getBalance()).isEqualTo(new Amount(TEN));
+		assertThat(account.getBalance()).isEqualTo(Amount.of(10));
 	}
 
 	@Test
 	public void should_return_0_when_withdraw_an_amount_of_10() {
 
-		Amount amount = new Amount(TEN);
+		Amount amount = Amount.of(10);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.withdraw(new Amount(TEN));
+		account.withdraw(Amount.of(10));
 
-		assertThat(account.getBalance()).isEqualTo(new Amount(ZERO));
+		assertThat(account.getBalance()).isEqualTo(Amount.of(0));
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void should_throw_exception_when_bank_account_doesnt_have_enough_money() {
 
-		Amount amount = new Amount(ZERO);
+		Amount amount = Amount.of(0);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.withdraw(new Amount(TEN));
+		account.withdraw(Amount.of(10));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void should_throw_exception_when_deposit_a_negative_amount() {
 
-		Amount amount = new Amount(ZERO);
+		Amount amount = Amount.of(0);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.deposit(new Amount(new BigDecimal(-1)));
+		account.deposit(Amount.of(-1));
 	}
 
 
 	@Test(expected = IllegalArgumentException.class)
 	public void should_throw_exception_when_withdraw_a_negative_amount() {
 
-		Amount amount = new Amount(ZERO);
+		Amount amount = Amount.of(0);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.withdraw(new Amount(new BigDecimal(-1)));
+		account.withdraw(Amount.of(-1));
 	}
 
 	@Test
 	public void should_save_operations_when_deposit_or_withdraw_an_amount() {
 
-		Amount amount = new Amount(ZERO);
+		Amount amount = Amount.of(0);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.deposit(new Amount(new BigDecimal(5)));
-		account.withdraw(new Amount(new BigDecimal(3)));
+		account.deposit(Amount.of(5));
+		account.withdraw(Amount.of(3));
 
 		assertThat(account.getOperations()).isNotNull().isNotEmpty();
 		assertThat(account.getOperations())

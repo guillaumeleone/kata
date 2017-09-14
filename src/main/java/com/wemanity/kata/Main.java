@@ -5,9 +5,6 @@ import com.wemanity.kata.core.BankAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-
-import static java.math.BigDecimal.*;
 import static java.time.LocalDateTime.*;
 
 public class Main {
@@ -16,14 +13,14 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Amount amount = new Amount(ZERO);
+		Amount amount = Amount.of(0);
 		BankAccount account = new BankAccount(now(), amount);
 
-		account.deposit(new Amount(new BigDecimal(5)));
-		account.withdraw(new Amount(new BigDecimal(3)));
+		account.deposit(Amount.of(5));
+		account.withdraw(Amount.of(3));
 
 		try {
-			account.withdraw(new Amount(new BigDecimal(10)));
+			account.withdraw(Amount.of(10));
 		} catch(Exception e) {
 			logger.error("" + e);
 		}

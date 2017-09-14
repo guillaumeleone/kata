@@ -7,7 +7,11 @@ public class Amount implements Comparable<Amount> {
 
 	private BigDecimal value;
 
-	public Amount(BigDecimal value) {
+	public static Amount of(double value) {
+		return new Amount(new BigDecimal(value));
+	}
+
+	protected Amount(BigDecimal value) {
 		Objects.requireNonNull(value);
 		this.value = value;
 	}

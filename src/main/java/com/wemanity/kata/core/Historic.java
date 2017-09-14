@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Historic {
 
-	private List<Operation> operations = new ArrayList<>();
+	private final List<Operation> operations = new ArrayList<>();
 
 	public void saveOperation(Operation operation) {
 		this.operations.add(operation);

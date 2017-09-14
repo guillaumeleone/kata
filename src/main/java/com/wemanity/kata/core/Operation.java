@@ -9,10 +9,10 @@ public class Operation {
 		WITHDRAWAL
 	}
 
-	private TYPE type;
-	private LocalDateTime date;
-	private Amount amount;
-	private Amount balance;
+	private final TYPE type;
+	private final LocalDateTime date;
+	private final Amount amount;
+	private final Amount balance;
 
 	public Operation(TYPE type, LocalDateTime date, Amount amount, Amount balance) {
 		this.type = type;

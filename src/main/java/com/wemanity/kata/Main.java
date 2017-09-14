@@ -13,8 +13,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Amount amount = Amount.of(0);
-		BankAccount account = new BankAccount(now(), amount);
+		BankAccount account = new BankAccount(now(), Amount.of(0));
 
 		account.deposit(Amount.of(5));
 		account.withdraw(Amount.of(3));

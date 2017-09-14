@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Amount implements Comparable<Amount> {
 
-	private BigDecimal value;
+	private final BigDecimal value;
 
 	public static Amount of(double value) {
 		return new Amount(new BigDecimal(value));
